@@ -1,6 +1,7 @@
 import filter.*
 import problem.MethodNamePrediction
 import problem.LabelExtractor
+import problem.MethodJavaDocExtraction
 import psi.PsiProjectParser
 import storage.Code2SeqStorage
 import storage.JsonASTStorage
@@ -17,6 +18,7 @@ class Pipeline(private val outputDirectory: File, private val config: Config) {
 
     private fun getLabelExtractor(): LabelExtractor = when (config.problem) {
         MethodNamePrediction.name -> MethodNamePrediction()
+        MethodJavaDocExtraction.name -> MethodJavaDocExtraction()
         else -> throw IllegalArgumentException("Unknown problem ${config.problem}")
     }
 
