@@ -4,12 +4,8 @@ import astminer.common.model.Node
 
 private const val DESCRIPTION_NODE_TYPE = "DOC_COMMENT_DATA"
 
-internal fun extractDescription(node: Node): String {
-    return node.extractManyByNormalizing(DESCRIPTION_NODE_TYPE)
-}
-
-internal fun Node.extractManyByNormalizing(type: String): String {
-    return getChildrenOfType(type).joinToString("") { it.getToken() }.normalized()
+internal fun extractDescription(node: Node): String = with(node) {
+    return getChildrenOfType(DESCRIPTION_NODE_TYPE).joinToString("") { it.getToken() }.normalized()
 }
 
 internal fun String.normalized(): String =

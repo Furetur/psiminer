@@ -6,7 +6,7 @@ private const val TAG_NAME_NODE_TYPE = "DOC_TAG_NAME"
 private const val TAG_VALUE_TOKEN_NODE_TYPE = "DOC_PARAMETER_REF|DOC_TAG_VALUE_TOKEN"
 
 class TagExtractionException(reason: String, node: Node) :
-    UnsupportedOperationException("Failed to extract tag from $node because $reason")
+    UnsupportedOperationException("Failed to extract tag from '${node.getToken().normalized()}': $reason")
 
 fun extractTag(node: Node): JavaDocTag {
     return when (extractTagName(node)) {
@@ -29,7 +29,8 @@ object ParamTagExtractor : JavaDocTagExtractor {
     const val tagName = "param"
 
     override fun extractTag(node: Node): JavaDocTag {
-        val identifierTag = node.getChildOfType(TAG_VALUE_TOKEN_NODE_TYPE)?.getToken() ?: error("Failed")
+        val identifierTag = node.getChildOfType(TAG_VALUE_TOKEN_NODE_TYPE)?.getToken()
+            ?: throw TagExtractionException("Could not extract identifier", node)
         val description = extractDescription(node)
         return JavaDocIdentifierTag(tagName, identifierTag, description)
     }
@@ -41,7 +42,8 @@ object SeeTagExtractor : JavaDocTagExtractor {
     private const val REFERENCE_NODE_TYPE = "DOC_METHOD_OR_FIELD_REF"
 
     override fun extractTag(node: Node): JavaDocTag {
-        val data = node.getChildOfType(REFERENCE_NODE_TYPE)?.getToken() ?: error("aa")
+        val data = node.getChildOfType(REFERENCE_NODE_TYPE)?.getToken()
+            ?: throw TagExtractionException("Could not extract data", node)
         return JavaDocSimpleTag(tagName, data)
     }
 }

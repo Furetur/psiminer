@@ -9,10 +9,6 @@ import psi.PsiNode
 
 class MethodJavaDocExtraction : LabelExtractor {
 
-    companion object {
-        const val name = "method javadoc extraction"
-    }
-
     override val granularityLevel = GranularityLevel.Method
 
     override fun processTree(root: PsiNode): Sample {
@@ -23,10 +19,13 @@ class MethodJavaDocExtraction : LabelExtractor {
         return Sample(root, label.withEscapedDoubleQuotes())
     }
 
-
     private fun PsiNode.getJavaDoc(): Node? = getChildOfType("DOC_COMMENT")
 
     private fun PsiNode.removeJavaDoc() {
         getChildOfType("MODIFIER_LIST")?.removeChildrenOfType("DOC_COMMENT")
+    }
+
+    companion object {
+        const val name = "method javadoc extraction"
     }
 }
