@@ -1,0 +1,31 @@
+name: Extract JavaDoc from dataset
+
+on:
+  push:
+    branches: [ master, javadoc-extraction ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Unzip Tar And Rename Folders
+      run:  |
+        cd src/test/resources
+        tar -xvf java-small.tar.gz
+        cd java-small
+        mv training train
+        mv validation val
+
+    - name: Run Extraction
+      run: bash psiminer.sh src/test/resources/java-small output javadoc_config.json 2> error_log.txt
+
+    - name: Upload Raw Server Test Results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Extraction Results
+        path: output
