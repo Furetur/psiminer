@@ -15,8 +15,8 @@ class MethodJavaDocExtraction : LabelExtractor {
 
     override val granularityLevel = GranularityLevel.Method
 
-    override fun processTree(root: PsiNode): Sample? {
-        val javaDocNode = root.getJavaDoc() ?: return null
+    override fun processTree(root: PsiNode): Sample {
+        val javaDocNode = root.getJavaDoc() ?: return Sample(root, "")
         val javaDoc = extractJavaDoc(javaDocNode)
         val label = Json.encodeToString(javaDoc)
         root.removeJavaDoc()
