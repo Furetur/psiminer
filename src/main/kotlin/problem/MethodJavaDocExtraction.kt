@@ -2,6 +2,7 @@ package problem
 
 import astminer.common.model.Node
 import javadoc.extractJavaDoc
+import javadoc.withEscapedDoubleQuotes
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import psi.PsiNode
@@ -17,18 +18,9 @@ class MethodJavaDocExtraction : LabelExtractor {
     override fun processTree(root: PsiNode): Sample? {
         val javaDocNode = root.getJavaDoc() ?: return null
         val javaDoc = extractJavaDoc(javaDocNode)
-//        val label = Json.encodeToString(javaDoc)
-//        println("------------")
-//        println("Java doc ${javaDocNode.getToken()}")
-//        processJavaDoc(javaDocNode)
-//        println("Extracted javadoc")
-//        println(javaDoc)
-//        println("Serialized javadoc")
-//        println(Json.encodeToString(javaDoc))
-//        println("------------")
-//        root.removeJavaDoc()
-//        return null
-        return Sample(root, Json.encodeToString(javaDoc))
+        val label = Json.encodeToString(javaDoc)
+        root.removeJavaDoc()
+        return Sample(root, label.withEscapedDoubleQuotes())
     }
 
 
