@@ -1,6 +1,5 @@
 package javadoc
 
-import astminer.common.model.Node
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
