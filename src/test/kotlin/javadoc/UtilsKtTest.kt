@@ -1,6 +1,6 @@
 package javadoc
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import strikt.api.*
 import strikt.assertions.*
 
