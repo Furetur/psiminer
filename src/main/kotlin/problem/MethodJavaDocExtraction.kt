@@ -22,7 +22,7 @@ class MethodJavaDocExtraction : LabelExtractor {
     private fun PsiNode.getJavaDoc(): Node? = getChildOfType("DOC_COMMENT")
 
     private fun PsiNode.removeJavaDoc() {
-        getChildOfType("MODIFIER_LIST")?.removeChildrenOfType("DOC_COMMENT")
+        removeChildrenOfType("DOC_COMMENT")
     }
 
     companion object {

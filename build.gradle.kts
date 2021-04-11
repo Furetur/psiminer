@@ -25,8 +25,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
 
-    testImplementation("junit:junit:4.11")
-    testImplementation(kotlin("test-junit"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
+//    testImplementation(kotlin("test-junit"))
+    testImplementation("io.strikt:strikt-core:0.30.0")
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.2")
 }
@@ -55,9 +57,13 @@ tasks {
         val config: String? by project
         args = listOfNotNull("psiminer", dataset, output, config)
         jvmArgs = listOf("-Djava.awt.headless=true")
-        maxHeapSize = "20g"
+        maxHeapSize = "14g"
     }
     register("runPSIMiner") {
         dependsOn(runIde)
+    }
+    test {
+        jvmArgs = listOf("-Djava.awt.headless=true")
+        useJUnitPlatform()
     }
 }
