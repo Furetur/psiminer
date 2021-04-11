@@ -17,6 +17,10 @@ Tag parsing is described in the section *JavaDoc Tag Extraction*.
 
 ## How to use
 
+```shell
+bash psiminer.sh path_to_dataset path_to_output javadoc_config.json 2> error_log.txt
+```
+
 To use this feature you need to set the `problem` to `method javadoc extraction` in the config.
 
 ### Config Example
