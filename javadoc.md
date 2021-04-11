@@ -65,3 +65,7 @@ The `JavaDocSimpleTag` is used for tags of type `@tagName stringData` and stores
 
 The tag extraction logic is easily extendable and is located in the file `src/main/kotlin/javadoc/JavaDocTagExtractors.kt`.
 
+## Examples
+
+This feature was tested on a portion of [this dataset](https://s3.amazonaws.com/code2seq/datasets/java-small.tar.gz)
+

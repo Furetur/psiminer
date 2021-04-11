@@ -9,12 +9,11 @@ fun extractJavaDoc(node: Node): JavaDoc {
 }
 
 private fun extractTags(node: Node): List<JavaDocTag> {
-    return node.getChildrenOfType(TAG_NODE_TYPE).mapNotNull {
+    return node.getChildrenOfType(TAG_NODE_TYPE).map {
         try {
             extractTag(it)
         } catch (e: TagExtractionException) {
-            println(e)
-            null
+            DefaultTagExtractor.extractTag(it)
         }
     }
 }
